@@ -1,0 +1,85 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > WalletService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.test_case.service</a>
+</div>
+
+<h1>Coverage Summary for Class: WalletService (com.example.test_case.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">WalletService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.test_case.service;
+&nbsp;
+&nbsp;import com.example.test_case.dto.WalletDto;
+&nbsp;import com.example.test_case.dto.WalletNewDto;
+&nbsp;import com.example.test_case.dto.WalletOperationDto;
+&nbsp;
+&nbsp;import java.util.UUID;
+&nbsp;
+&nbsp;public interface WalletService {
+&nbsp;
+&nbsp;    WalletDto create(WalletNewDto walletDto);
+&nbsp;
+&nbsp;    WalletDto update(WalletOperationDto walletOperationDto);
+&nbsp;
+&nbsp;    WalletDto get(UUID uuid);
+&nbsp;
+&nbsp;    void delete(UUID uuid);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-07-21 18:40</div>
+</div>
+</body>
+</html>
