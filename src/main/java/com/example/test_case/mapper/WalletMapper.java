@@ -10,11 +10,6 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING, injectionStrategy = CONSTRUCTOR)
 public interface WalletMapper {
-    @Mapping(target = "walletId", source = "id")
-    @Mapping(target = "amount", source = "balance")
+    @Mapping(target = "walletId", source = "wallet.id")
     WalletDto toDto(Wallet wallet);
-
-    @Mapping(target = "id", source = "walletId")
-    @Mapping(target = "balance", source = "amount")
-    Wallet toEntityFromDto(WalletDto walletDto);
 }
