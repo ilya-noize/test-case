@@ -5,6 +5,7 @@ import com.example.test_case.dto.WalletNewDto;
 import com.example.test_case.dto.WalletOperationDto;
 import com.example.test_case.exception.WalletBalancePaymentsException;
 import com.example.test_case.exception.WalletNotFoundException;
+import com.example.test_case.exception.WalletOperationException;
 import com.example.test_case.mapper.WalletMapper;
 import com.example.test_case.model.Wallet;
 import com.example.test_case.repository.WalletRepository;
@@ -104,7 +105,7 @@ class WalletServiceIntegrationTest {
                 .operationType(operationType)
                 .amount(amount).build();
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(WalletOperationException.class,
                 () -> service.update(walletOperationDto),
                 "No enum constant OperationType." + operationType);
 

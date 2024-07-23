@@ -1,5 +1,6 @@
 package com.example.test_case.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -14,9 +15,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WalletOperationDto {
-    UUID walletId;
     @NotNull
+    UUID walletId;
+    @NotBlank
     String operationType;
     @Positive
-    int amount;
+    Integer amount;
 }

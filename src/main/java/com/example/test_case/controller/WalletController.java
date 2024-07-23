@@ -53,14 +53,14 @@ public class WalletController {
     @PostMapping("/wallet")
     @ResponseStatus(HttpStatus.CREATED)
     public WalletDto create(@RequestBody @Valid WalletNewDto dto) {
-        log.info("POST /api/v1/wallet BALANCE:{}.", dto.getBalance());
+        log.debug("POST /api/v1/wallet BALANCE:{}.", dto.getBalance());
 
         return walletService.create(dto);
     }
 
     @PutMapping("/wallet")
-    public WalletDto update(@RequestBody WalletOperationDto dto) {
-        log.info("PUT /api/v1/wallet WID:{}, OPER_TYPE{}, AMOUNT{}.",
+    public WalletDto update(@RequestBody @Valid WalletOperationDto dto) {
+        log.debug("PUT /api/v1/wallet WID:{}, OPER_TYPE{}, AMOUNT{}.",
                 dto.getWalletId(),
                 dto.getOperationType(),
                 dto.getAmount());
@@ -70,14 +70,14 @@ public class WalletController {
 
     @GetMapping("/wallets/{id}")
     public WalletDto get(@PathVariable UUID id) {
-        log.info(format("GET /api/v1/wallets/%s", id.toString()));
+        log.debug(format("GET /api/v1/wallets/%s", id.toString()));
 
         return walletService.get(id);
     }
 
     @DeleteMapping("/wallets/{id}")
     public void delete(@PathVariable UUID id) {
-        log.info(format("DELETE /api/v1/wallets/%s", id.toString()));
+        log.debug(format("DELETE /api/v1/wallets/%s", id.toString()));
 
         walletService.delete(id);
     }

@@ -5,6 +5,7 @@ import com.example.test_case.dto.WalletNewDto;
 import com.example.test_case.dto.WalletOperationDto;
 import com.example.test_case.exception.WalletBalancePaymentsException;
 import com.example.test_case.exception.WalletNotFoundException;
+import com.example.test_case.exception.WalletOperationException;
 import com.example.test_case.mapper.WalletMapper;
 import com.example.test_case.model.OperationType;
 import com.example.test_case.model.Wallet;
@@ -30,6 +31,8 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public WalletDto create(WalletNewDto dto) {
+        if (dto == null)
+            throw new WalletOperationException("Invalid data for executing the request");
         int balance = dto.getBalance();
         if (balance < 0)
             throw new WalletBalancePaymentsException("Negative balance for wallet");
@@ -51,7 +54,7 @@ public class WalletServiceImpl implements WalletService {
         int amount = walletOperationDto.getAmount();
 
         if (amount <= 0) {
-            throw new WalletBalancePaymentsException("Wrong amount: " + amount);
+            throw new WalletBalancePaymentsException(format("Wrong amount: %d", amount));
         }
 
         balance = getBalanceAfterOperationType(operationType, balance, amount);
@@ -85,12 +88,17 @@ public class WalletServiceImpl implements WalletService {
             int balance,
             int amount
     ) {
-        OperationType operation = EnumUtils.findEnumInsensitiveCase(
-                OperationType.class,
-                operationType
-        );
-        log.debug("The operation is fixed: {}", operation);
-        return operation == DEPOSIT ? balance + amount : getWithdraw(balance, amount);
+        try {
+            OperationType operation = EnumUtils.findEnumInsensitiveCase(
+                    OperationType.class,
+                    operationType
+            );
+            log.debug("The operation is fixed: {}", operation);
+
+            return operation == DEPOSIT ? balance + amount : getWithdraw(balance, amount);
+        } catch (IllegalArgumentException e) {
+            throw new WalletOperationException(format("Invalid operation type: %s", operationType));
+        }
     }
 
     private int getWithdraw(int balance, int amount) {
@@ -107,6 +115,6 @@ public class WalletServiceImpl implements WalletService {
     private Wallet getExistsWalletById(UUID uuid) {
 
         return walletRepository.findById(uuid)
-                .orElseThrow(() -> new WalletNotFoundException("Wallet not found"));
+                .orElseThrow(() -> new WalletNotFoundException(format("Wallet not found: %s", uuid)));
     }
 }
