@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-step1.yaml
+  - changeSet:
+      id: 1
+      author: ilya_noize
+      changes:
+        - createTable:
+            tableName: wallet
+            columns:
+              - column:
+                  name: id
+                  type: BINARY(16)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: balance
+                  type: BIGINT
+                  constraints:
+                    unique: false
+                    nullable: false
