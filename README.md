@@ -2,6 +2,53 @@
 
 ## REST - POST,PUT,GET,DELETE <sup>1 2</sup>
 
+### POST /api/v1/wallet
+
+#### Request
+> JSON
+> {
+> "balance":0
+> }
+#### Responce
+> JSON
+> {
+> "walletId":"98c8fe7a-524e-492c-bfd5-db98417749f2",
+> "balance":0
+> }
+**HttpStatus**: **201**
+
+### PUT /api/v1/wallet
+
+#### Request
+> JSON
+> {
+> "walletId": "98c8fe7a-524e-492c-bfd5-db98417749f2",
+> "operationType":"DEPOSIT" or "WITHDRAW",
+> "amount": 1000
+> }
+#### Responce
+> JSON
+> {
+> "walletId":"98c8fe7a-524e-492c-bfd5-db98417749f2",
+> "balance":1000
+> }
+**HttpStatus**: **200**
+
+### GET /api/v1/wallets/98c8fe7a-524e-492c-bfd5-db98417749f2
+
+#### Responce
+> JSON
+> {
+> "walletId":"98c8fe7a-524e-492c-bfd5-db98417749f2",
+> "balance":1000
+> }
+
+**HttpStatus:** **200**
+
+### DELETE /api/v1/wallets/98c8fe7a-524e-492c-bfd5-db98417749f2
+
+> **HttpStatus**: **200**
+
 ### Обработка ошибок
 
 #### WalletBalancePaymentsException.java
