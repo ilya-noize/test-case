@@ -19,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebM
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -44,6 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = WalletController.class)
+@DisabledInAotMode
 @AutoConfigureWebMvc
 @AutoConfigureMockMvc
 class WalletControllerTest {
@@ -262,7 +264,7 @@ class WalletControllerTest {
     void update_whenNullJson_then400() throws Exception {
         walletOperationDto = null;
         String error = REQUIRED_REQUEST_BODY_IS_MISSING;
-        when(walletService.update(null))
+        when(walletService.update(walletOperationDto))
                 .thenThrow(new WalletOperationException(error));
 
         RequestBuilder requestBuilder = put(POST_PATH)

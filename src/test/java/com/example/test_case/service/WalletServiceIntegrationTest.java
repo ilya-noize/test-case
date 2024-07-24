@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.aot.DisabledInAotMode;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -30,6 +32,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@DisabledInAotMode
+@ActiveProfiles("test")
 class WalletServiceIntegrationTest {
     private static final int MAX_AMOUNT = 1000;
     private static final EasyRandom RANDOM = new EasyRandom();
