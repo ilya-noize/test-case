@@ -28,7 +28,7 @@
 - [Dockerfile](Dockerfile)
 
 ### server
-- amazoncorretto:17
+- eclipse-temurin:17-jre-alpine
 - ports: 9090:9090
 - depends: db
 - build: Dockerfile
