@@ -17,7 +17,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.aot.DisabledInAotMode;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -32,7 +31,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-@DisabledInAotMode
 @ActiveProfiles("test")
 class WalletServiceIntegrationTest {
     private static final int MAX_AMOUNT = 1000;
@@ -59,6 +57,28 @@ class WalletServiceIntegrationTest {
                 .balance(balance)
                 .build();
         amount = RANDOM.nextInt(MAX_BALANCE, MAX_AMOUNT);
+    }
+
+
+    @Test
+    @DisplayName("CREATE: When normal balance wallet Then OK")
+    void create_whenNormalBalance_thenOk() {
+        Wallet wallet = RANDOM.nextObject(Wallet.class);
+        wallet.setBalance(balance);
+        when(repository.save(any(Wallet.class))).thenReturn(wallet);
+
+        WalletDto expected = WalletDto.builder()
+                .walletId(wallet.getId())
+                .balance(wallet.getBalance()).build();
+        when(mapper.toDto(wallet)).thenReturn(expected);
+
+        WalletNewDto walletNewDto = WalletNewDto.builder()
+                .balance(wallet.getBalance()).build();
+        WalletDto walletDto = service.create(walletNewDto);
+
+        assertEquals(expected, walletDto);
+
+        verify(repository, times(1)).save(any(Wallet.class));
     }
 
     @Test

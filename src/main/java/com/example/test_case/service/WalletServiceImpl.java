@@ -31,7 +31,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public WalletDto create(WalletNewDto dto) {
-        if (dto == null)
+        if (dto == null || dto.getBalance() == null)
             throw new WalletOperationException("Invalid data for executing the request");
         int balance = dto.getBalance();
         if (balance < 0)
@@ -39,9 +39,10 @@ public class WalletServiceImpl implements WalletService {
         Wallet wallet = walletRepository.save(
                 Wallet.builder().balance(balance).build());
 
-        log.debug("Wallet created:{}", wallet.getId());
+        WalletDto walletDto = walletMapper.toDto(wallet);
+        log.debug("Wallet created:{}", walletDto.getWalletId());
 
-        return walletMapper.toDto(wallet);
+        return walletDto;
     }
 
     @Override
