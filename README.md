@@ -26,24 +26,26 @@
 
 - [docker-compose.yml](docker-compose.yml)
 - [Dockerfile](Dockerfile)
-- [.env](.env)
 
 ### server
 - amazoncorretto:17
-- port: 9090
+- ports: 9090:9090
 - depends: db
-- networks: backend
+- build: Dockerfile
 
 ### db
 - postgres:16.0-alpine3.18
-- port: 6541:5432
-- networks: backend
+- ports: 15432:5432
+
+### pgAdmin
+- dpage/pgadmin4:7
+- ports: 5050:80
 
 
 # Notes
-<div><sup><b>1 - эндпоинты должны быть покрыты тестами.</b></sup></div>
+<div><sup><b> 1 - эндпоинты должны быть покрыты тестами.</b></sup></div>
 
-<div><sup><b>2 - Каждый запрос должен быть обработан (нет 50Х error)</b></sup></div>
+<div><sup><b> 2 - Каждый запрос должен быть обработан (нет 50Х error)</b></sup></div>
 
 <div><sup><b> 3 - 1000 RPS по одному кошельку</b>
 </sup></div>
